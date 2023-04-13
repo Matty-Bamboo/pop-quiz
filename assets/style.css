@@ -199,3 +199,7 @@ nav ul li a:hover {
 .quiz-container.timer-text {
   padding: 55px;
 }
+
+.quiz-container.timer-count {
+  padding: 55px;
+}

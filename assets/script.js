@@ -21,7 +21,8 @@ var opt2 = document.getElementById('opt2')
 var opt3 = document.getElementById('opt3')
 var opt4 = document.getElementById('opt4')
 var startButton = document.querySelector("#start-button");
-var timerElemnt = document.querySelector(".timer-count");
+var timerElement = document.querySelector(".timer-count");
+var restartButton = document.querySelector("#reset-button");
 var timer;
 var timerCount;
 var isWin = false;
@@ -125,8 +126,22 @@ startButton.addEventListener("click", function() {
   document.querySelector("#start-page") .setAttribute("class", "hide");
 });
 
-// Calls init() so that it fires when page opened
-//init();
+function resetQuiz() {
+  scoreCounter = 0;
+  setScore();
+}
+
+restartButton.addEventListener("click", restartQuiz);
+
+// The startQuiz function is called when the start button is clicked
+function startQuiz() {
+  isWin = false;
+  timerCount = 10;
+  // Prevents start button from being clicked when round is in progress
+  //startButton.disabled = true;
+  startTimer()
+}
+
 
 timer = setInterval(function() {
   timerCount--;
