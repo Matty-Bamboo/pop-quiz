@@ -20,13 +20,11 @@ var opt1 = document.getElementById('opt1')
 var opt2 = document.getElementById('opt2')
 var opt3 = document.getElementById('opt3')
 var opt4 = document.getElementById('opt4')
-var startButton = document.querySelector(".start-button");
-
-// The init function is called when the page loads 
-//function init() {
-//  getscore();
-//  getinitals;
-//}
+var startButton = document.querySelector("#start-button");
+var timerElemnt = document.querySelector(".timer-count");
+var timer;
+var timerCount;
+var isWin = false;
 
 // array of questions/answers
 var app = {
@@ -57,39 +55,40 @@ var app = {
       answer: "3"
   },
 ],
+
 index:0,
-  //Load a question using the index
-  load:function(){
-    if(this.index<=this.questions.length-1){
-      quizbox.innerHTML=this.index+1 + ". " +this.questions[this.index].question;
-      opt1.innerHTML=this.questions[this.index].options[0];
-      opt2.innerHTML=this.questions[this.index].options[1];
-      opt3.innerHTML=this.questions[this.index].options[2];
-      opt4.innerHTML=this.questions[this.index].options[3];
-    }
-    else {
-    //Show the end screen
-      quizbox.innerHTML="Quiz Completed!";
-      ul.style.display="none";
-      nextButton.style.display="none";
-    }
-  },
-  next: function(){
-    this.index++;
-    this.load();
-  },
-  //Check if answer is correct or not
-  check: function(ele){
-    var id=ele.id.split('');
-    if(id[id.length-1]==this.questions[this.index].answer){
-      this.score++;
-      ele.className="correct";
-      this.scoreCard();
-    }
-    else{
-      ele.className="wrong";
-    }
-  },
+ //Load a question using the index
+ load:function(){
+  if(this.index<=this.questions.length-1){
+    quizbox.innerHTML=this.index+1 + ". " +this.questions[this.index].question;
+    opt1.innerHTML=this.questions[this.index].options[0];
+    opt2.innerHTML=this.questions[this.index].options[1];
+    opt3.innerHTML=this.questions[this.index].options[2];
+    opt4.innerHTML=this.questions[this.index].options[3];
+  }
+   else {
+ //Show the end screen
+    quizbox.innerHTML="Quiz Completed!";
+    ul.style.display="none";
+    nextButton.style.display="none";
+  }
+ },
+ next: function(){
+  this.index++;
+  this.load();
+ },
+//Check if answer is correct or not
+ check: function(ele){
+  var id=ele.id.split('');
+  if(id[id.length-1]==this.questions[this.index].answer){
+    this.score++;
+    ele.className="correct";
+    this.scoreCard();
+  }
+  else{
+   ele.className="wrong";
+  }
+},
 //disable options once user selects on option
 preventClick:function(){
   for(let i=0; i<ul.children.length; i++){
@@ -121,7 +120,29 @@ function next(){
 }
 
 // Attach event listener to start button to call startGame function on click
-startButton.addEventListener("click", startQuiz);
+startButton.addEventListener("click", function() {
+  document.querySelector("#main-quiz") .setAttribute("class", "show");
+  document.querySelector("#start-page") .setAttribute("class", "hide");
+});
 
 // Calls init() so that it fires when page opened
-init();
+//init();
+
+timer = setInterval(function() {
+  timerCount--;
+  timerElement.textContent = timerCount;
+  if (timerCount >= 0) {
+    // Tests if win condition is met
+    if (isWin && timerCount > 0) {
+      // Clears interval and stops timer
+      clearInterval(timer);
+      winGame();
+    }
+  }
+  // Tests if time has run out
+  if (timerCount === 0) {
+    // Clears interval
+    clearInterval(timer);
+    loseGame();
+  }
+}, 1000);

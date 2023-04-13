@@ -14,7 +14,7 @@
   }
 
   button {
-    background-color: #13293d;
+    background-color: red;
     border-radius: 8px;
     color: #fff;
     cursor: pointer;
@@ -83,6 +83,17 @@ nav ul li a:hover {
 }
 
   /* quiz container elements8 */
+#main-quiz {
+  display: none;
+}
+
+#main-quiz.show {
+  display: block;
+}
+
+#start-page.hide {
+  display: none;
+}
 
 .quiz-container{
   height: 600px;
@@ -175,4 +186,16 @@ nav ul li a:hover {
     border: none;
     color:white;
     border-radius: 8px;
+}
+
+.quiz-container .timer {
+  background-color: white;
+  padding: 5px 20px;
+  border: none;
+  color: #13293d;
+  border-radius: 8px;
+}
+
+.quiz-container.timer-text {
+  padding: 55px;
 }
