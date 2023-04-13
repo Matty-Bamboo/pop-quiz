@@ -5,44 +5,123 @@
     //10 points added to score
     //if incorrect alert: Wrong!
     //10 seconds subtracted from time
-  // User is presented with second question...
+  // User is presented with second question... 
   // When all 5 questions are answered OR the timer reaches zero
     //then game is over
  //User can then enter & save intials and score.
  //optional user can "clear" scores
 
+// elements by ID
 
-var timerElement = document.querySelector(".timer-count");
+var ul = document.getElementById('ul')
+var nextButton = document.getElementById('btnNext');
+var quizbox = document.getElementById('questionBox')
+var opt1 = document.getElementById('opt1')
+var opt2 = document.getElementById('opt2')
+var opt3 = document.getElementById('opt3')
+var opt4 = document.getElementById('opt4')
 var startButton = document.querySelector(".start-button");
 
-var score;
-var initials;
-var answer;
-var isWin = false;
-var timer;
-var timerCount;
-
-
 // The init function is called when the page loads 
-function init() {
-  getscore();
-  getinitals;
-}
+//function init() {
+//  getscore();
+//  getinitals;
+//}
 
 // array of questions/answers
-var questions = [
-  {"question" : "What does HTML stand for?" , "options" : ["cascading style sheet","hypertext Markup Language","Hypocratic Marker Language","Non of the above"], "answer" : "hypertext Markup Language"},
-  {"question" : "String values must be enclosed within _____ when being assinged to variables" , "options" : ["commas","curly brackets","paranthasis","quotes"], "answer" : "quotes"},
-  {"question" : "Arrays in JavaScript can be used to store" , "options" : ["numbers and strings","other arrays","booleans","all of the above"], "answer" : "all of the above"},
-  {"question" : "which is NOT a data type?" , "options" : ["strings","booleans","numbers","alerts"], "answer" : "alerts"},
-  {"question" : "Which of the following methods is used to access HTML elements using Javascript" , "options" : ["getElementbyId()","getElementsByClassName()","Both 1 & 2","Non of the above"], "answer" : "Both 1 & 2"},
-];
-
-// The startGame function is called when the start button is clicked
-function startquiz() {
-  isWin = false;
-  timerCount = 90;
-// Prevents start button from being clicked when round is in progress
-  startButton.disabled = true;
-  startTimer()
+var app = {
+  questions: [
+  {
+    question: "What does HTML stand for?",
+     options: ["cascading style sheet", "hypertext markup language", "hypocratic marker language", "none of the above"],
+     answer: "2"
+  },
+  {
+    question: "String values must be enclosed within _____ when being assinged to variables",
+     options: ["commas", "curly brackets", "paranthasis", "quotes"],
+     answer: "4"
+  },
+  {
+    question: "Arrays in JavaScript can be used to store",
+      options: ["numbers and strings", "other arrays", "booleans", "all of the above"],
+      answer: "4"
+  },
+  {
+    question: "which is NOT a data type?",
+      options: ["strings", "booleans", "numbers", "alerts"],
+      answer: "4"
+  },
+  {
+    question: "Which of the following methods is used to access HTML elements using Javascript",
+      options: ["getElementbyId()", "getElementsByClassName()", "both 1 & 2", "none of the above"],
+      answer: "3"
+  },
+],
+index:0,
+  //Load a question using the index
+  load:function(){
+    if(this.index<=this.questions.length-1){
+      quizbox.innerHTML=this.index+1 + ". " +this.questions[this.index].question;
+      opt1.innerHTML=this.questions[this.index].options[0];
+      opt2.innerHTML=this.questions[this.index].options[1];
+      opt3.innerHTML=this.questions[this.index].options[2];
+      opt4.innerHTML=this.questions[this.index].options[3];
+    }
+    else {
+    //Show the end screen
+      quizbox.innerHTML="Quiz Completed!";
+      ul.style.display="none";
+      nextButton.style.display="none";
+    }
+  },
+  next: function(){
+    this.index++;
+    this.load();
+  },
+  //Check if answer is correct or not
+  check: function(ele){
+    var id=ele.id.split('');
+    if(id[id.length-1]==this.questions[this.index].answer){
+      this.score++;
+      ele.className="correct";
+      this.scoreCard();
+    }
+    else{
+      ele.className="wrong";
+    }
+  },
+//disable options once user selects on option
+preventClick:function(){
+  for(let i=0; i<ul.children.length; i++){
+  ul.children[i].style.pointerEvents="none";
+  }
+},
+allowClick:function(){
+  for(let i=0; i<ul.children.length; i++){
+    ul.children[i].style.pointerEvents="auto";
+    ul.children[i].className=''
+  }
+},
+  score:0,
+  scoreCard:function(){
+  scoreCard.innerHTML=this.questions.length + "/" + this.score;
 }
+}
+
+window.load=app.load();
+
+function button(ele){
+    app.check(ele);
+    app.preventClick();
+}
+
+function next(){
+    app.next();
+    app.allowClick();
+}
+
+// Attach event listener to start button to call startGame function on click
+startButton.addEventListener("click", startQuiz);
+
+// Calls init() so that it fires when page opened
+init();
