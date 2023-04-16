@@ -5,53 +5,65 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Coding Quiz</title>
-    <link rel="stylesheet" href="assets/style.css" />
-    </head>
+    <link rel="stylesheet" href="style.css" />
+  </head>
 <body>
-  <header class="header" id="start-page">
-    <h1>Coding Quiz!</h1>
-    <button id="start-button">Start Quiz</button>
-      <nav>
-        <ul>
-          <li><a href="highscores">View High Scores</li></a>
-          <li><a href="./quizfacts.html" >Quiz Quick Facts</li></a>
-        </ul>
-      </nav>
+  <header class="header">
+   <h1>Coding Quiz!</h1>
   </header>
 
-<main id="main-quiz">
-  <div class="quiz-container">         
-    <div id="questionBox" class="question">       
-    </div>
-      <div class="options">
-          <ul id="ul">
-              <li id="opt1" onclick="button(this)"></li>
-              <li id="opt2" onclick="button(this)"></li>
-              <li id="opt3" onclick="button(this)"></li>
-              <li id="opt4" onclick="button(this)"></li>
-          </ul>
+<main>
+  <!--introduction section-->
+  <div class="rules" id="rules">
+    <h2>Rules for this Quiz</h2>
+      <ul>
+        <li>There are 5 questions on this quiz</li>
+        <li>The time cap for this quiz is 1 minute</li>
+        <li>Each correct answer is equal to 10 points</li>
+        <li>Each incorrect answer will subtract 10 seconds from the timer</li>
+     </ul>
+        <p>May the odds be forever in your favor!</p>
+        <button id="start-button">Start Quiz</button>
+  </div>
+  <!--main quiz section-->    
+  <div class="quiz-container-hidden">
+    <div id="questionBox" class="question"></div>
+      <div class="options" id="options">
+        <ul id="ul">
+          <li id="opt1" onclick="button(this)"></li>
+          <li id="opt2" onclick="button(this)"></li>
+          <li id="opt3" onclick="button(this)"></li>
+          <li id="opt4" onclick="button(this)"></li>
+        </ul>
       </div>
-      <div class="card timer">
-        <div class = "timer-text">
-        <div class="large-font timer-count">30</div>
-        <h3>Seconds Remaining</h3>
+      <p id="quiz-result"></p>
+      <div class="next">
+        <button id="btn-submit" type="button" onclick = "evaluateSubmission()" class = "hide">
+          submit            
+        </button>
+        <button id="btn-next" type="button" onclick="next()">
+          next
+        </button>
+      </div>  
+        <div class="timer">
+          TIME REMAINING: <span id="timer"></span>
         </div>
-      </div>
-      <div class="score">
-          <div class="next">
-              <button id="btnNext" type="button" onclick="next()">
-                Next
-              </button>
-          </div>
-          <div class="score-card">
-              SCORE: <span id="scoreCard">0</span>
-          </div>     
-      </div>
-  </div>      
-  <div class="reset">
-    <button id="reset-button">Restart</button>
-  </div> 
-    <script src="assets/script.js"></script>
+    </div>
 
+    <!--final section-->
+    <div id="endQuiz" class="endQuiz-hidden">
+      <h2>Quiz Over!</h2>
+      <form>
+        <label for="initials">Enter initials:</label>
+        <input type="text" id="initials" name="initials" maxlength="5" required/>
+        <button type="button" id="saveInitials" onclick="displayFinalScore()">Save Score</button>
+      </form>
+    </div>
+    <div class="final-hidden">
+      <h2>Your final score it <span id="finalScore"></span></h2>
+    </div>
+
+  <script src="script.js"></script>
 </main>
+</body>
 </html>
