@@ -168,9 +168,9 @@ function setTimer() {
   document.getElementById("timer").textContent = timeLeft;
  if (timeLeft <= 0) {
   document.getElementById("btnNext").disabled = true;
-  }, 1000);
+  }}, 1000);
 }
-}
+
 
 
 // add event listenes to the ansswer options and start button
