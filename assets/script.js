@@ -97,7 +97,7 @@ function displayQuestion(currentQuestionIndex) {
     for (let i = 0; i < currentQuestion.options.length; i++) {
       document.getElementById("opt" + (i + 1)).textContent = currentQuestion.options[i];
     }
-    document.getElementById("btnNext").classList.add("hide");
+    document.getElementById("btn-next").classList.add("hide");
 }
   
 function next() {
@@ -106,7 +106,7 @@ function next() {
   document.querySelector(".quiz-container").classList.add("quiz-container-hidden");
   document.querySelector(".endquiz-hidden").classList.add("endQuiz");
   document.querySelector(".endQuiz-hidden").classList.remove("endQuiz-hidden");
-
+  consult.log("endQuiz");
   localStorage.setItem("score", score);
  }
  else {
@@ -142,7 +142,7 @@ function evaluateSubmission() {
       document.getElementById("quiz-result").classList.add("theme-failure");
     }
 
-    document.getElementById("btnNext").classList.remove("hide");
+    document.getElementById("btn-next").classList.remove("hide");
     document.getElementById("btn-submit").classList.add("hide");
     document.getElementById("options").classList.add("no-click");
   }
@@ -162,25 +162,25 @@ function displayFinalScore() {
 }
 
 function setTimer() {
- document.getElementById("timer").textContent = timeLeft;  
- timeLeft--;
- timerInterval = setInterval(function() {
-  document.getElementById("timer").textContent = timeLeft;
+  timeLeft--;
+  document.getElementById("timer").textContent = timeLeft;  
+  timerInterval = setInterval(function() {
+  
  if (timeLeft <= 0) {
-  document.getElementById("btnNext").disabled = true;
+  document.getElementById("btn-next").disabled = true;
   }}, 1000);
 }
 
 
 
-// add event listenes to the ansswer options and start button
+// add event listener to the answer options and start button
 const answerOptions = document.querySelectorAll(".options li");
 for (let i = 0; i < answerOptions.length; i++) {
   answerOptions[i].addEventListener("click", function() {
     const selected = document.querySelector("selected");
     if (selected) selected.classList.remove("selected");
     this.classList.add("selected");
-    document.getElementById("btn-submit").classList.remove("hide");
+    document.getElementById("btn-next").classList.remove("hide");
   });
 }
 
@@ -191,7 +191,7 @@ function button(elem) {
   }
   elem.classList.add("selected");
 
-  const nextButton = document.getElementById("btnNext");
+  const nextButton = document.getElementById("btn-next");
   nextButton.addEventListener("click", () => {
     elem.classList.remove("selected");
   });
