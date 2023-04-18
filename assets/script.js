@@ -104,9 +104,9 @@ function next() {
   const currentQuestion = quizQuestions[currentQuestionIndex];
  if (currentQuestionIndex === quizQuestions.length-1) {
   document.querySelector(".quiz-container").classList.add("quiz-container-hidden");
-  document.querySelector(".endquiz-hidden").classList.add("endQuiz");
+  document.querySelector(".endQuiz-hidden").classList.add("endQuiz");
   document.querySelector(".endQuiz-hidden").classList.remove("endQuiz-hidden");
-  consult.log("endQuiz");
+  console.log("endQuiz");
   localStorage.setItem("score", score);
  }
  else {
@@ -152,12 +152,12 @@ function displayFinalScore() {
   let score = localStorage.getItem("score");
   const intials = document.getElementById("initials").value;
   document.querySelector(".endQuiz").classList.replace("endQuiz", "hide");
-  document.querySelector("final-hidden").classList.replace("final-hidden", "endQuiz");
+  document.querySelector(".final-hidden").classList.replace("final-hidden", "endQuiz");
 
-  const finalScoreSpan = document.getElementById("finalScore");
-  finalScoreSpan.textContent = score*10;
+  const finalScoreSpan = document.getElementById(".finalScore");
+  finalScoreSpan.textContent = score;
 
-  const userInitials = document.getElementById("userInitials");
+  const userInitials = document.getElementById(".userInitials");
   userInitials.textContent = initials;
 }
 
